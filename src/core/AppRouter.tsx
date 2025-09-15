@@ -5,9 +5,10 @@ import {
   Navigate,
 } from "react-router-dom";
 import SignInForm from "../domain/auth/components/SignInForm";
+import { useAuth } from "./AuthContext";
 
 const AppRouter = () => {
-  const isAuthenticated = false;
+  const { isAuthenticated } = useAuth();
 
   return (
     <Router>
