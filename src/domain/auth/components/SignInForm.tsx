@@ -11,31 +11,32 @@ import {
   Checkbox,
 } from "@mui/material";
 import SitemarkIcon from "@mui/icons-material/Bookmark"; // Replace with the correct icon or your custom icon path
-import React, { type FormEvent } from "react";
+import { useAuth } from "../../../core/AuthContext";
+import { object, string } from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+interface FormInputs {
+  email: string;
+  password: string;
+}
+
+const signInSchema = object({
+  email: string().email().required(),
+  password: string().required(),
+});
 
 function SignInForm() {
-  const [emailError, setEmailError] = React.useState(false);
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
+  const { login } = useAuth();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    const formData = {
-      email: data.get("email"),
-      password: data.get("password"),
-    };
-    console.log(formData);
-    alert("Form submitted");
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(signInSchema) });
 
-  const validateInputs = () => {
-    alert("validateInputs");
-    return true;
+  const onSubmit = ({ email, password }: FormInputs) => {
+    login(email, password);
   };
 
   return (
@@ -61,7 +62,7 @@ function SignInForm() {
         </Typography>
         <Box
           component="form"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(onSubmit)}
           noValidate
           sx={{
             display: "flex",
@@ -73,8 +74,9 @@ function SignInForm() {
           <FormControl>
             <FormLabel htmlFor="email">Email</FormLabel>
             <TextField
-              error={emailError}
-              helperText={emailErrorMessage}
+              {...register("email")}
+              error={!!errors.email}
+              helperText={errors.email?.message}
               id="email"
               type="email"
               name="email"
@@ -84,14 +86,14 @@ function SignInForm() {
               required
               fullWidth
               variant="outlined"
-              color={emailError ? "error" : "primary"}
             />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="password">Password</FormLabel>
             <TextField
-              error={passwordError}
-              helperText={passwordErrorMessage}
+              {...register("password")}
+              error={!!errors.password}
+              helperText={errors.password?.message}
               name="password"
               placeholder="••••••"
               type="password"
@@ -101,19 +103,13 @@ function SignInForm() {
               required
               fullWidth
               variant="outlined"
-              color={passwordError ? "error" : "primary"}
             />
           </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            onClick={validateInputs}
-          >
+          <Button type="submit" fullWidth variant="contained">
             Sign in
           </Button>
         </Box>

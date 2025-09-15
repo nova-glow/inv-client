@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: () => void;
+  login: (email: string, password: string) => void;
   logout: () => void;
 }
 
@@ -11,7 +11,10 @@ const AuthContext = React.createContext<AuthContextType | null>(null);
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
-  const login = () => setIsAuthenticated(true);
+  const login = (email: string, password: string) => {
+    console.log(email, password);
+    setIsAuthenticated(true);
+  };
   const logout = () => setIsAuthenticated(false);
 
   return (
