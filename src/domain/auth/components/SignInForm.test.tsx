@@ -12,15 +12,13 @@ describe('SignInForm', () => {
       <AuthProvider>
         <SignInForm />
       </AuthProvider>,
-      { wrapper: BrowserRouter }
+      { wrapper: BrowserRouter },
     );
 
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
 
-    expect(
-      screen.getByRole('button', { name: /sign in/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
   });
 
   test('shows validation errors when fields are empty', async () => {
@@ -28,7 +26,7 @@ describe('SignInForm', () => {
       <AuthProvider>
         <SignInForm />
       </AuthProvider>,
-      { wrapper: BrowserRouter }
+      { wrapper: BrowserRouter },
     );
 
     await userEvent.click(screen.getByRole('button', { name: /sign in/i }));
@@ -41,12 +39,10 @@ describe('SignInForm', () => {
     const mockLogin = jest.fn();
 
     render(
-      <AuthContext.Provider
-        value={{ isAuthenticated: false, login: mockLogin, logout: jest.fn() }}
-      >
+      <AuthContext.Provider value={{ isAuthenticated: false, login: mockLogin, logout: jest.fn() }}>
         <SignInForm />
       </AuthContext.Provider>,
-      { wrapper: BrowserRouter }
+      { wrapper: BrowserRouter },
     );
 
     const email = 'test@test.com';

@@ -23,9 +23,7 @@ describe('AuthContext', () => {
 
   it('throws error if used outside provider', () => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
-    expect(() => renderHook(() => useAuth())).toThrow(
-      '[useAuth] Missing Provider'
-    );
+    expect(() => renderHook(() => useAuth())).toThrow('[useAuth] Missing Provider');
   });
 
   it('should have isAuthenticated as false initially', () => {

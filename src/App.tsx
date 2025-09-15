@@ -1,9 +1,9 @@
-import { Container } from "@mui/material";
-import AppRouter from "./core/AppRouter";
+import { Container } from '@mui/material';
+import AppRouter from './core/AppRouter';
 
 function App() {
   return (
-    <Container sx={{ height: "100vh" }}>
+    <Container sx={{ height: '100vh' }}>
       <AppRouter />
     </Container>
   );
