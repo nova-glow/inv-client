@@ -1,0 +1,35 @@
+import { Routes, Route, Navigate } from 'react-router-dom';
+import SignInForm from '../domain/auth/components/SignInForm';
+import { useAuth } from './auth/useAuth';
+
+const AppRouter = () => {
+  const { isAuthenticated } = useAuth();
+
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={
+          isAuthenticated ? (
+            <Navigate to="/dashboard" />
+          ) : (
+            <Navigate to="/auth" />
+          )
+        }
+      />
+      <Route path="/auth" element={<SignInForm />} />
+      <Route
+        path="/dashboard"
+        element={
+          isAuthenticated ? (
+            <div>Welcome to the The Inventory!</div>
+          ) : (
+            <Navigate to="/auth" />
+          )
+        }
+      />
+    </Routes>
+  );
+};
+
+export default AppRouter;
