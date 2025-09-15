@@ -1,23 +1,23 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
-import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
-import { AuthProvider } from "./core/AuthContext.tsx";
-import { BrowserRouter } from "react-router-dom";
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
+import { AuthProvider } from './core/auth/AuthProvider.tsx';
+import { BrowserRouter } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
-    mode: "light",
+    mode: 'light',
     primary: {
-      main: "#1976d2",
+      main: '#1976d2',
     },
     secondary: {
-      main: "#9c27b0",
+      main: '#9c27b0',
     },
   },
 });
 
-createRoot(document.getElementById("root")!).render(
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme}>

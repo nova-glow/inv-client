@@ -1,6 +1,6 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import SignInForm from "../domain/auth/components/SignInForm";
-import { useAuth } from "./AuthContext";
+import { Routes, Route, Navigate } from 'react-router-dom';
+import SignInForm from '../domain/auth/components/SignInForm';
+import { useAuth } from './auth/useAuth';
 
 const AppRouter = () => {
   const { isAuthenticated } = useAuth();
